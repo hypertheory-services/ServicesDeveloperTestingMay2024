@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceApi", "ReferenceAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceApi.ContractTests", "ReferenceApi.ContractTests\ReferenceApi.ContractTests.csproj", "{93D3D177-5061-4C34-8C65-189C644B9748}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceApi.UnitTests", "ReferenceApi.UnitTests\ReferenceApi.UnitTests.csproj", "{DABC6E6B-A257-4828-8FF5-6E22C06E5782}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{93D3D177-5061-4C34-8C65-189C644B9748}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93D3D177-5061-4C34-8C65-189C644B9748}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93D3D177-5061-4C34-8C65-189C644B9748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DABC6E6B-A257-4828-8FF5-6E22C06E5782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DABC6E6B-A257-4828-8FF5-6E22C06E5782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DABC6E6B-A257-4828-8FF5-6E22C06E5782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DABC6E6B-A257-4828-8FF5-6E22C06E5782}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
