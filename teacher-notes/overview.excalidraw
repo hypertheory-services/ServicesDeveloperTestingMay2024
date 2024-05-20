@@ -1,0 +1,48 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "id": "6UsBTp3iZk3bCwzeZPAot",
+      "type": "text",
+      "x": 535,
+      "y": 226,
+      "width": 929.9392700195312,
+      "height": 525,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "seed": 1607139163,
+      "version": 812,
+      "versionNonce": 396014325,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1716216025793,
+      "link": null,
+      "locked": false,
+      "text": "Developer Testing:\n    - Tests you write while you create the code.\n\nTest Driven Development:\n    - Deciding to write the test before you write the code to help you:\n        - Think through the design (experiment) \n        - Verify your understanding of the requirement\n    - In other words, \"TDD\" is something you decide to do because it is helpful in a context.\n        - example: I rarely do \"TDD\" with \"User Interface\" stuff. Too shifty.\n\n- Some Points of Developer Tests:\n    - Continuous Integration means we always keep our code in a \"deliverable\" state.\n    - Tests should be an expression of the capabilities and limitations of your code.\n\n\n\nTypes of Tests:\n    - \"End to End\" (e2e)\n    - \"Integration\"\n    - \"Acceptance\" or \"Contract\" tests\n    - Unit Tests",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 518,
+      "containerId": null,
+      "originalText": "Developer Testing:\n    - Tests you write while you create the code.\n\nTest Driven Development:\n    - Deciding to write the test before you write the code to help you:\n        - Think through the design (experiment) \n        - Verify your understanding of the requirement\n    - In other words, \"TDD\" is something you decide to do because it is helpful in a context.\n        - example: I rarely do \"TDD\" with \"User Interface\" stuff. Too shifty.\n\n- Some Points of Developer Tests:\n    - Continuous Integration means we always keep our code in a \"deliverable\" state.\n    - Tests should be an expression of the capabilities and limitations of your code.\n\n\n\nTypes of Tests:\n    - \"End to End\" (e2e)\n    - \"Integration\"\n    - \"Acceptance\" or \"Contract\" tests\n    - Unit Tests",
+      "lineHeight": 1.25
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
