@@ -19,3 +19,12 @@
 - Our Tests to Ensure our Code is Independently Deployable
     - System Integration Tests?
 
+
+
+## IOU
+
+- How to hide routes in OpenApi Spec (Swagger) that are behind a feature flag.
+
+- Make a ClassData for our valid employees
+
+- Fix that null thing with lastname

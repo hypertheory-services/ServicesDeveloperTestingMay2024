@@ -1,5 +1,4 @@
-﻿
-using ReferenceApi.Employees;
+﻿using ReferenceApi.Employees;
 
 namespace ReferenceApi.UnitTests;
 public class SlugGeneratorTests
@@ -10,8 +9,8 @@ public class SlugGeneratorTests
     [InlineData("Luke", "Skywalker", "skywalker-luke")]
     [InlineData("Joe", "", "joe")]
     [InlineData("Cher", "", "cher")]
-
-    public void Avacado(string firstName, string lastName, string expected)
+    [InlineData(" Joe", "  Schmidt  ", "schmidt-joe")]
+    public void GeneratingSlugsForPostToEmployees(string firstName, string lastName, string expected)
     {
         // Given
         var slugGenerator = new EmployeeSlugGenerator();
@@ -23,5 +22,16 @@ public class SlugGeneratorTests
 
         // Then
         Assert.Equal(expected, slug);
+    }
+
+    [Theory]
+    [InlineData("", "")]
+    [InlineData(null, "")]
+    [InlineData(null, null)]
+    public void InvalidInputs(string? first, string? last)
+    {
+        var slugGenerator = new EmployeeSlugGenerator();
+
+        Assert.Throws<InvalidOperationException>(() => slugGenerator.Generate(first!, last));
     }
 }
