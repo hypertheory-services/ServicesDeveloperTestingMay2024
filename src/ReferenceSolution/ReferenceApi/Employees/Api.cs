@@ -9,7 +9,10 @@ namespace ReferenceApi.Employees;
 public class Api(
     IValidator<EmployeeCreateRequest> validator,
     IGenerateSlugsForNewEmployees slugGenerator,
-    IDocumentSession session) : ControllerBase
+    IDocumentSession session,
+    INotifyOfPossibleSithLords notifier
+    ) : ControllerBase
+
 {
 
 
@@ -26,7 +29,16 @@ public class Api(
         {
             return BadRequest(validations.ToDictionary());
         }
+
+        // if the employee's last name if "Vader" we have to log this out to the logs.
         var slug = await slugGenerator.GenerateAsync(request.FirstName, request.LastName, token);
+
+        if (request.LastName?.ToLowerInvariant() == "vader")
+        {
+            notifier.Notify(request.FirstName, request.LastName);
+
+
+        }
 
         var entity = new EmployeeEntity
         {

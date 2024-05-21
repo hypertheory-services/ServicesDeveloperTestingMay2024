@@ -12,6 +12,7 @@ builder.Services.AddMarten(config =>
     config.Connection(connectionString);
 }).UseLightweightSessions();
 
+builder.Services.AddSingleton<INotifyOfPossibleSithLords, NotifyOfPossibleSithLords>();
 builder.Services.AddScoped<ICheckForUniqueEmployeeStubs, EmployeeUniquenessChecker>();
 builder.Services.AddScoped<IGenerateSlugsForNewEmployees, EmployeeSlugGeneratorWithUniqueIds>();
 // Add services to the container.
