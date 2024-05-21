@@ -38,6 +38,16 @@ public class AddingEmployees : IClassFixture<HostFixture>
 
         Assert.Equal(expected, responseMessage);
 
+        var response2 = await Host.Scenario(api =>
+        {
+            api.Get.Url($"/employees/{responseMessage.Id}");
+            api.StatusCodeShouldBeOk();
+        });
+
+        var responseMessage2 = await response2.ReadAsJsonAsync<EmployeeResponseItem>();
+        Assert.NotNull(responseMessage2);
+
+        Assert.Equal(responseMessage, responseMessage2);
     }
 
     [Fact]
