@@ -1,9 +1,18 @@
 using FluentValidation;
+using Marten;
 using Microsoft.FeatureManagement;
 using ReferenceApi.Employees;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("data") ?? throw new Exception("No Connection String");
+
+builder.Services.AddMarten(config =>
+{
+    config.Connection(connectionString);
+}).UseLightweightSessions();
+
+builder.Services.AddScoped<ICheckForUniqueEmployeeStubs, EmployeeUniquenessChecker>();
 builder.Services.AddScoped<IGenerateSlugsForNewEmployees, EmployeeSlugGeneratorWithUniqueIds>();
 // Add services to the container.
 builder.Services.AddFeatureManagement(); // In Configration, look for "FeatureManagement"
