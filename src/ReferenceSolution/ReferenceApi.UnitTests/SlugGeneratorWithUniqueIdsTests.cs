@@ -1,5 +1,6 @@
 ﻿
 
+using NSubstitute;
 using ReferenceApi.Employees;
 
 namespace ReferenceApi.UnitTests;
@@ -15,7 +16,10 @@ public class SlugGeneratorWithUniqueIdsTests
     public async Task GeneratingSlugsForPostToEmployees(string firstName, string lastName, string expected)
     {
         // Given
-        var slugGenerator = new EmployeeSlugGeneratorWithUniqueIds(new AlwaysUniqueDummy());
+        var fakeUniqueChecker = Substitute.For<ICheckForUniqueEmployeeStubs>();
+        fakeUniqueChecker.CheckUniqueAsync(expected, CancellationToken.None).Returns(true);
+
+        var slugGenerator = new EmployeeSlugGeneratorWithUniqueIds(fakeUniqueChecker);
 
 
         // When
@@ -32,36 +36,60 @@ public class SlugGeneratorWithUniqueIdsTests
     [InlineData(null, null)]
     public async Task InvalidInputs(string? first, string? last)
     {
-        var slugGenerator = new EmployeeSlugGeneratorWithUniqueIds(new AlwaysUniqueDummy());
+        var fakeUniqueChecker = Substitute.For<ICheckForUniqueEmployeeStubs>();
+        fakeUniqueChecker.CheckUniqueAsync(Arg.Any<string>(), CancellationToken.None).Returns(true);
+
+        var slugGenerator = new EmployeeSlugGeneratorWithUniqueIds(fakeUniqueChecker);
+
 
         await Assert.ThrowsAsync<InvalidOperationException>(async () => await slugGenerator.GenerateAsync(first!, last));
     }
     [Theory]
     [InlineData("Johnny", "Marr", "marr-johnny-a")]
     [InlineData("Jeff", "Gonzalez", "gonzalez-jeff-a")]
+    [InlineData("Jeff", "Gonzalez", "gonzalez-jeff-z")]
     public async Task DuplicatesCreateUniqueSlugs(string firstName, string lastName, string expected)
     {
-        var slugGenerator = new EmployeeSlugGeneratorWithUniqueIds(new NeverUniqueDummy());
+        var fakeUniqueChecker = Substitute.For<ICheckForUniqueEmployeeStubs>();
+        fakeUniqueChecker.CheckUniqueAsync(expected, CancellationToken.None).Returns(true);
+        var slugGenerator = new EmployeeSlugGeneratorWithUniqueIds(fakeUniqueChecker);
 
         var slug = await slugGenerator.GenerateAsync(firstName, lastName);
 
         Assert.Equal(expected, slug);
     }
-}
 
-public class AlwaysUniqueDummy : ICheckForUniqueEmployeeStubs
-{
-    public Task<bool> CheckUniqueAsync(string slug, CancellationToken token)
+
+
+    [Fact]
+    public async Task AUniqueIdIsAdded()
     {
-        return Task.FromResult(true);
+        var fakeUniqueChecker = Substitute.For<ICheckForUniqueEmployeeStubs>();
+        //fakeUniqueChecker.CheckUniqueAsync(Arg.Any<string>(), CancellationToken.None).Returns(false);
+        var slugGenerator = new EmployeeSlugGeneratorWithUniqueIds(fakeUniqueChecker);
+        var slug = await slugGenerator.GenerateAsync("Dog", "Man");
+
+        Assert.StartsWith("man-dog", slug);
+        Assert.True(slug.Length == 7 + 22); // Is the slug with 22 random thingies on the end.
+
     }
+
 }
 
+//public class AlwaysUniqueDummy : ICheckForUniqueEmployeeStubs
+//{
+//    public Task<bool> CheckUniqueAsync(string slug, CancellationToken token)
+//    {
+//        return Task.FromResult(true);
+//    }
+//}
 
-public class NeverUniqueDummy : ICheckForUniqueEmployeeStubs
-{
-    public Task<bool> CheckUniqueAsync(string slug, CancellationToken token)
-    {
-        return Task.FromResult(false);
-    }
-}
+
+//public class NeverUniqueDummy : ICheckForUniqueEmployeeStubs
+//{
+//    public Task<bool> CheckUniqueAsync(string slug, CancellationToken token)
+//    {
+//        return Task.FromResult(false);
+//    }
+//}
+
