@@ -10,6 +10,7 @@ public class SlugGeneratorTests
     [InlineData("Joe", "", "joe")]
     [InlineData("Cher", "", "cher")]
     [InlineData(" Joe", "Von Schmidt  ", "von_schmidt-joe", Skip = "Waiting")]
+    [InlineData("Johnny", "Marr", "marr-johnny")]
     public void GeneratingSlugsForPostToEmployees(string firstName, string lastName, string expected)
     {
         // Given
@@ -33,5 +34,16 @@ public class SlugGeneratorTests
         var slugGenerator = new EmployeeSlugGenerator();
 
         Assert.Throws<InvalidOperationException>(() => slugGenerator.Generate(first!, last));
+    }
+
+    [Theory]
+    [InlineData("Johnny", "Marr", "marr-johnny-a")]
+    public void DuplicatesCreateUniqueSlugs(string firstName, string lastName, string expected)
+    {
+        var slugGenerator = new EmployeeSlugGenerator();
+
+        var slug = slugGenerator.Generate(firstName, lastName);
+
+        Assert.Equal(expected, slug);
     }
 }

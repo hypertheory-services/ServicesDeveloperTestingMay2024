@@ -3,8 +3,14 @@ using Alba;
 using ReferenceApi.Employees;
 
 namespace ReferenceApi.ContractTests.Employees;
-public class AddingEmployees
+public class AddingEmployees : IClassFixture<HostFixture>
 {
+
+    private readonly IAlbaHost Host;
+    public AddingEmployees(HostFixture fixture)
+    {
+        Host = fixture.Host;
+    }
 
     [Theory]
     [ClassData(typeof(EmployeesSampleData))]
@@ -19,9 +25,9 @@ public class AddingEmployees
             FirstName = request.FirstName,
             LastName = request.LastName!
         };
-        var host = await AlbaHost.For<Program>();
 
-        var response = await host.Scenario(api =>
+
+        var response = await Host.Scenario(api =>
         {
             api.Post.Json(request).ToUrl("/employees");
             api.StatusCodeShouldBe(201);
@@ -38,9 +44,9 @@ public class AddingEmployees
     public async Task ValidationsAreChecked()
     {
         var request = new EmployeeCreateRequest { FirstName = "", LastName = "" }; // BAD Employee
-        var host = await AlbaHost.For<Program>();
 
-        var response = await host.Scenario(api =>
+
+        var response = await Host.Scenario(api =>
         {
             api.Post.Json(request).ToUrl("/employees");
             api.StatusCodeShouldBe(400);

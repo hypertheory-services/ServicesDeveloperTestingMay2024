@@ -24,11 +24,12 @@ public class EmployeesSampleData : IEnumerable<object[]>
                 "marr-johnny"
             ],
             [
-                new EmployeeCreateRequest {
-                    FirstName = "  Bob  ",
-                    LastName = "   Mould"
+               new EmployeeCreateRequest
+                {
+                    FirstName = "Johnny",
+                    LastName = "Marr"
                 },
-                "mould-bob"
+                "marr-johnny-a"
                 ]
         ];
 
