@@ -1,5 +1,6 @@
 ﻿using FluentValidation.TestHelper;
 using ReferenceApi.Employees;
+using System.ComponentModel.DataAnnotations;
 
 namespace ReferenceApi.UnitTests;
 public class ValidingEmployeeCreateRequestsTests
@@ -55,4 +56,13 @@ public class ValidingEmployeeCreateRequestsTests
              }
         };
     }
+}
+
+
+public class ManagerAssignmentRequest
+{
+    [Required]
+    public string EmployeeId { get; set; } = string.Empty;
+    [Required, MaxLength(20)]
+    public string ManagerId { get; set; } = string.Empty;
 }

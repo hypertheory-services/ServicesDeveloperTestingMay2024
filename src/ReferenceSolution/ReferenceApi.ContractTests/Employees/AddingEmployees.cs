@@ -7,25 +7,17 @@ public class AddingEmployees
 {
 
     [Theory]
-    [InlineData("Boba", "Fett", "fett-boba")]
-    [InlineData("Luke", "Skywalker", "skywalker-luke")]
-    [InlineData("Joseph", null, "joseph")]
-    public async Task Bannana(string firstName, string? lastName, string expectedId)
+    [ClassData(typeof(EmployeesSampleData))]
+    public async Task CanHireNewEmployees(EmployeeCreateRequest request, string expectedId)
     {
         // Given
         // A Host Per Test (Host Per Class, Collections)
-        var request = new EmployeeCreateRequest
-        {
-            FirstName = firstName,
-            LastName = lastName
-        };
 
         var expected = new EmployeeResponseItem
         {
-
             Id = expectedId,
-            FirstName = firstName,
-            LastName = lastName
+            FirstName = request.FirstName,
+            LastName = request.LastName!
         };
         var host = await AlbaHost.For<Program>();
 
@@ -40,5 +32,18 @@ public class AddingEmployees
 
         Assert.Equal(expected, responseMessage);
 
+    }
+
+    [Fact]
+    public async Task ValidationsAreChecked()
+    {
+        var request = new EmployeeCreateRequest { FirstName = "", LastName = "" }; // BAD Employee
+        var host = await AlbaHost.For<Program>();
+
+        var response = await host.Scenario(api =>
+        {
+            api.Post.Json(request).ToUrl("/employees");
+            api.StatusCodeShouldBe(400);
+        });
     }
 }

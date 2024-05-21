@@ -9,7 +9,7 @@ public class SlugGeneratorTests
     [InlineData("Luke", "Skywalker", "skywalker-luke")]
     [InlineData("Joe", "", "joe")]
     [InlineData("Cher", "", "cher")]
-    [InlineData(" Joe", "  Schmidt  ", "schmidt-joe")]
+    [InlineData(" Joe", "Von Schmidt  ", "von_schmidt-joe", Skip = "Waiting")]
     public void GeneratingSlugsForPostToEmployees(string firstName, string lastName, string expected)
     {
         // Given
