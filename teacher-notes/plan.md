@@ -25,6 +25,3 @@
 
 - How to hide routes in OpenApi Spec (Swagger) that are behind a feature flag.
 
-- Make a ClassData for our valid employees
-
-- Fix that null thing with lastname
