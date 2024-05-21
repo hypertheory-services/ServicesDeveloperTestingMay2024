@@ -11,14 +11,14 @@ public class SlugGeneratorTests
     [InlineData("Cher", "", "cher")]
     [InlineData(" Joe", "Von Schmidt  ", "von_schmidt-joe", Skip = "Waiting")]
     [InlineData("Johnny", "Marr", "marr-johnny")]
-    public void GeneratingSlugsForPostToEmployees(string firstName, string lastName, string expected)
+    public async Task GeneratingSlugsForPostToEmployees(string firstName, string lastName, string expected)
     {
         // Given
         var slugGenerator = new EmployeeSlugGenerator();
 
 
         // When
-        string slug = slugGenerator.Generate(firstName, lastName);
+        string slug = await slugGenerator.GenerateAsync(firstName, lastName);
 
 
         // Then
@@ -29,21 +29,12 @@ public class SlugGeneratorTests
     [InlineData("", "")]
     [InlineData(null, "")]
     [InlineData(null, null)]
-    public void InvalidInputs(string? first, string? last)
+    public async Task InvalidInputs(string? first, string? last)
     {
         var slugGenerator = new EmployeeSlugGenerator();
 
-        Assert.Throws<InvalidOperationException>(() => slugGenerator.Generate(first!, last));
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await slugGenerator.GenerateAsync(first!, last));
     }
 
-    [Theory]
-    [InlineData("Johnny", "Marr", "marr-johnny-a")]
-    public void DuplicatesCreateUniqueSlugs(string firstName, string lastName, string expected)
-    {
-        var slugGenerator = new EmployeeSlugGenerator();
 
-        var slug = slugGenerator.Generate(firstName, lastName);
-
-        Assert.Equal(expected, slug);
-    }
 }

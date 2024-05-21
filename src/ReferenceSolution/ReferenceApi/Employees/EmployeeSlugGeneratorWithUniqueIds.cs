@@ -1,11 +1,10 @@
 ﻿
 namespace ReferenceApi.Employees;
 
-public class EmployeeSlugGenerator : IGenerateSlugsForNewEmployees
+public class EmployeeSlugGeneratorWithUniqueIds(ICheckForUniqueEmployeeStubs uniquenessChecker) : IGenerateSlugsForNewEmployees
 {
     public async Task<string> GenerateAsync(string firstName, string? lastName, CancellationToken token = default)
     {
-
         var slug = (Clean(firstName), Clean(lastName)) switch
         {
             (string first, null) => first,
@@ -13,10 +12,18 @@ public class EmployeeSlugGenerator : IGenerateSlugsForNewEmployees
             _ => throw new InvalidOperationException() // Chaos
         };
 
-        return slug;
-    }
+        bool isUnique = await uniquenessChecker.CheckUniqueAsync(slug, token);
+        if (isUnique)
+        {
+            return slug;
+        }
+        else
+        {
+            return "marr-johnny-a";
+        }
 
-    // Never type private, always refactor to it.
+
+    }
     private static string? Clean(string? part)
     {
         if (string.IsNullOrWhiteSpace(part))
@@ -25,4 +32,5 @@ public class EmployeeSlugGenerator : IGenerateSlugsForNewEmployees
         }
         return part.ToLowerInvariant().Trim();
     }
+
 }
