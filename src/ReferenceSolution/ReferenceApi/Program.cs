@@ -2,6 +2,7 @@ using FluentValidation;
 using Marten;
 using Microsoft.FeatureManagement;
 using ReferenceApi.Employees;
+using ReferenceApi.Order;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +36,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapOrdersApi();
 app.Run();
 
 

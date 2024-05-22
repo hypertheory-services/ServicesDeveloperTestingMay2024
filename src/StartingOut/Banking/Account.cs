@@ -9,8 +9,11 @@ public class Account(ICalculateBonuses bonusCalculator, IProvideCustomerRelation
 
     public void Deposit(decimal amountToDeposit)
     {
-        decimal amountOfBonus = bonusCalculator.HowMuchBonusFor(_balance, amountToDeposit);
-        _balance += amountToDeposit + amountOfBonus;
+        //decimal amountOfBonus = bonusCalculator.HowMuchBonusFor(_balance, amountToDeposit);
+        decimal amountOfBonus = 0;
+        var bonusCalc = new StandardBonusCalculator();
+
+        _balance += amountToDeposit + bonusCalc.CalculateBonus(_balance, amountOfBonus);
     }
 
     public decimal GetBalance()
