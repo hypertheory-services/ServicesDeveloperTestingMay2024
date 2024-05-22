@@ -13,6 +13,13 @@ builder.Services.AddMarten(config =>
     config.Connection(connectionString);
 }).UseLightweightSessions();
 
+var loyaltyApiUrl = builder.Configuration.GetValue<string>("loyaltyApi") ?? throw new Exception("Configuration does not have a url for customer loyalty");
+builder.Services.AddHttpClient<CustomerLoyaltyHttpClient>(client =>
+{
+    client.BaseAddress = new Uri(loyaltyApiUrl);
+});
+
+builder.Services.AddScoped<IGetBonusesForOrders, CustomerLoyaltyHttpClient>();
 builder.Services.AddSingleton<INotifyOfPossibleSithLords, NotifyOfPossibleSithLords>();
 builder.Services.AddScoped<ICheckForUniqueEmployeeStubs, EmployeeUniquenessChecker>();
 builder.Services.AddScoped<IGenerateSlugsForNewEmployees, EmployeeSlugGeneratorWithUniqueIds>();
@@ -39,7 +46,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
-if (await app.Services.GetRequiredService<IFeatureManager>().IsEnabledAsync("Orders"))
+//if (await app.Services.GetRequiredService<IFeatureManager>().IsEnabledAsync("Orders"))
+//{
+//    app.MapOrdersApi();
+//}
+
+if (app.Environment.IsDevelopment())
 {
     app.MapOrdersApi();
 }

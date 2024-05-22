@@ -17,17 +17,22 @@ public static class Api
         return TypedResults.Ok();
     }
 
-    public static async Task<Ok<CreateOrderResponse>> AddOrderAsync(CreateOrderRequest request, CancellationToken token)
+    public static async Task<Ok<CreateOrderResponse>> AddOrderAsync(
+        CreateOrderRequest request,
+        IGetBonusesForOrders client,
+        CancellationToken token)
     {
         // OBVIOUSLY NEVER TRUST ANYTHING FROM THE CLIENT - Look up these items and verify the price, etc.
         var subTotal = request.Items.Select(i => i.Qty * i.Price).Sum();
 
+        decimal discount = await client.GetBonusForPurchaseAsync(Guid.NewGuid(), subTotal, token);
+
         var response = new CreateOrderResponse
         {
             Id = Guid.NewGuid(),
-            Discount = 0,
+            Discount = discount,
             SubTotal = subTotal,
-            Total = 0,
+            Total = subTotal - discount,
         };
         return TypedResults.Ok(response);
     }
