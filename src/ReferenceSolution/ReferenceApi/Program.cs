@@ -27,16 +27,22 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+
+app.UseAuthorization();
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
-
 app.MapControllers();
-app.MapOrdersApi();
+if (await app.Services.GetRequiredService<IFeatureManager>().IsEnabledAsync("Orders"))
+{
+    app.MapOrdersApi();
+}
 app.Run();
 
 
