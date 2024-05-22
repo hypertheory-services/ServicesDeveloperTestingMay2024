@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReferenceApi.UnitTests", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerLoyaltyTypes", "CustomerLoyaltyTypes\CustomerLoyaltyTypes.csproj", "{00A6C8AB-CB11-4CDB-A280-92679E23D20C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceApi.SystemIntegrationTests", "ReferenceApi.SystemIntegrationTests\ReferenceApi.SystemIntegrationTests.csproj", "{7137730C-7DC6-4C61-AE16-32F1DB13022F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{00A6C8AB-CB11-4CDB-A280-92679E23D20C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00A6C8AB-CB11-4CDB-A280-92679E23D20C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00A6C8AB-CB11-4CDB-A280-92679E23D20C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7137730C-7DC6-4C61-AE16-32F1DB13022F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7137730C-7DC6-4C61-AE16-32F1DB13022F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7137730C-7DC6-4C61-AE16-32F1DB13022F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7137730C-7DC6-4C61-AE16-32F1DB13022F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

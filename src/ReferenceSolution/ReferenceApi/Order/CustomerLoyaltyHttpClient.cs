@@ -1,6 +1,6 @@
 ﻿namespace ReferenceApi.Order;
 
-public class CustomerLoyaltyHttpClient(HttpClient client) : IGetBonusesForOrders
+public class CustomerLoyaltyHttpClient(HttpClient client, TimeProvider timeProvider) : IGetBonusesForOrders
 {
 
     public async Task<decimal> GetBonusForPurchaseAsync(
@@ -12,7 +12,7 @@ public class CustomerLoyaltyHttpClient(HttpClient client) : IGetBonusesForOrders
         var request = new CustomerLoyaltyTypes.LoyaltyDiscountRequest()
         {
             OrderTotal = (double)orderTotal,
-            PurchaseDate = DateTimeOffset.Now,
+            PurchaseDate = timeProvider.GetLocalNow(),
 
         };
 
@@ -30,5 +30,19 @@ public class CustomerLoyaltyHttpClient(HttpClient client) : IGetBonusesForOrders
             // throw an exception? not sure... (more in a minute)
             return 0;
         }
+    }
+}
+
+
+public interface ISystemTime
+{
+    public DateTimeOffset GetNow();
+}
+
+public class SystemTime : ISystemTime
+{
+    public DateTimeOffset GetNow()
+    {
+        return DateTimeOffset.Now;
     }
 }

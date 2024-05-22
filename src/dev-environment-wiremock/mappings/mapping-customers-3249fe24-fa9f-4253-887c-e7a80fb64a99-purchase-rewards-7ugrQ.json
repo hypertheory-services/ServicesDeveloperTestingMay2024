@@ -1,11 +1,11 @@
 {
   "id" : "74027484-05fb-361f-8189-5bba5fb5c04a",
   "request" : {
-    "urlPattern" : "/customers/([a-z]*/purchase-rewards",
+    "urlPathTemplate" : "/customers/{customerId}/purchase-rewards",
     "method" : "POST"
   },
   "response" : {
-    "status" : 200,
+    "status" : 500,
     "bodyFileName" : "body-customers-3249fe24-fa9f-4253-887c-e7a80fb64a99-purchase-rewards-7ugrQ.json",
     "headers" : {
       "Server" : "Kestrel",

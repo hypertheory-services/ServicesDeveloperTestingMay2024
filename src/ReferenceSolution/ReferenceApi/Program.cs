@@ -22,6 +22,8 @@ builder.Services.AddHttpClient<CustomerLoyaltyHttpClient>(client =>
 builder.Services.AddScoped<IGetBonusesForOrders>(sp =>
     sp.GetRequiredService<CustomerLoyaltyHttpClient>()
 );
+
+builder.Services.AddSingleton(sp => TimeProvider.System);
 builder.Services.AddSingleton<INotifyOfPossibleSithLords, NotifyOfPossibleSithLords>();
 builder.Services.AddScoped<ICheckForUniqueEmployeeStubs, EmployeeUniquenessChecker>();
 builder.Services.AddScoped<IGenerateSlugsForNewEmployees, EmployeeSlugGeneratorWithUniqueIds>();
