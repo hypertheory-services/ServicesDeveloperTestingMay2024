@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Time.Testing;
 using ReferenceApi.Order;
+using System.Text.Json;
+using WireMock.Matchers;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
@@ -26,16 +28,18 @@ public class PlacingOrdersWm
         //                    """;
         var clockTimeForTest = new DateTimeOffset(new DateTime(1969, 4, 20), TimeSpan.FromHours(-4));
 
+
         var fakeTime = new FakeTimeProvider(clockTimeForTest);
         var expectedBody = new CustomerLoyaltyTypes.LoyaltyDiscountRequest
         {
             OrderTotal = 121.44,
-            //PurchaseDate = fakeTime.GetLocalNow(),
+            PurchaseDate = fakeTime.GetLocalNow(),
         };
+        var bodyToSend = JsonSerializer.Serialize(expectedBody, new JsonSerializerOptions(JsonSerializerDefaults.Web));
         server.Given(
             Request.Create().WithPath("/customers/*/purchase-rewards")
             .UsingPost()
-            .WithBodyAsJson(expectedBody)
+            .WithBody(new JsonMatcher(bodyToSend))
             ).RespondWith(
                 Response
                 .Create()
@@ -70,17 +74,17 @@ public class PlacingOrdersWm
         var response = await host.Scenario(api =>
         {
             api.Post.Json(request).ToUrl("/orders");
-            api.StatusCodeShouldBeOk();
+            api.StatusCodeShouldBe(200);
         });
+
 
 
         var actualBody = await response.ReadAsJsonAsync<CreateOrderResponse>();
         Assert.NotNull(actualBody);
-        //Assert.Equal(expected, actualBody);
+
         Assert.Equal(420.69M, actualBody.Discount);
-        var entries = server.LogEntries;
-        //server.Should().HaveReceivedACall().AtUrl()
-        var x = 12;
+
+
     }
 }
 

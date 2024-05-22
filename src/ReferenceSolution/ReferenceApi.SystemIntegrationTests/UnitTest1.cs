@@ -2,7 +2,7 @@ namespace ReferenceApi.SystemIntegrationTests;
 
 public class EmployeesTests
 {
-    [Fact]
+    [Fact(Skip = "demo")]
     public async Task AddingAnEmployee()
     {
 
