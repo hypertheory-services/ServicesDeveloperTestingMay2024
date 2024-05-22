@@ -63,3 +63,13 @@ public class AddingEmployees : IClassFixture<HostFixture>
         });
     }
 }
+
+
+public class AnotherSetOfTests : IClassFixture<HostFixture>
+{
+    [Fact]
+    public async Task DoSomething()
+    {
+        // new instance here.
+    }
+}

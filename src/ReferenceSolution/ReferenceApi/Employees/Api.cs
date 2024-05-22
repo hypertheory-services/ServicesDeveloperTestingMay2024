@@ -41,47 +41,47 @@ public class Api(
         }
 
         var entity = new EmployeeEntity
-        {for
+        {
             Id = Guid.NewGuid(),
             Slug = slug,
             FirstName = request.FirstName,
             LastName = request.LastName
         };
-    session.Insert(entity);
+        session.Insert(entity);
         await session.SaveChangesAsync();
-    var response = new EmployeeResponseItem
-    {
-        Id = slug,
-        FirstName = request.FirstName,
-        LastName = request.LastName,
-    };
-        return StatusCode(201, response);
-}
-
-[HttpGet("/employees/{slug}")]
-public async Task<ActionResult> GetEmployeeBySlug(string slug)
-{
-
-    var entity = await session.Query<EmployeeEntity>()
-        .Where(e => e.Slug == slug)
-        .SingleOrDefaultAsync(); //<--- THIS
-
-    if (entity is null)
-    {
-        return NotFound();
-    }
-    else
-    {
         var response = new EmployeeResponseItem
         {
-            Id = entity.Slug,
-            FirstName = entity.FirstName,
-            LastName = entity.LastName
+            Id = slug,
+            FirstName = request.FirstName,
+            LastName = request.LastName,
         };
-        return Ok(response);
+        return StatusCode(201, response);
     }
 
-}
+    [HttpGet("/employees/{slug}")]
+    public async Task<ActionResult> GetEmployeeBySlug(string slug)
+    {
+
+        var entity = await session.Query<EmployeeEntity>()
+            .Where(e => e.Slug == slug)
+            .SingleOrDefaultAsync(); //<--- THIS
+
+        if (entity is null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            var response = new EmployeeResponseItem
+            {
+                Id = entity.Slug,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName
+            };
+            return Ok(response);
+        }
+
+    }
 }
 
 public record EmployeeCreateRequest // what the user is sending.
