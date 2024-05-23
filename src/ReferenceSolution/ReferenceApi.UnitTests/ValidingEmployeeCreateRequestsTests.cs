@@ -3,6 +3,7 @@ using ReferenceApi.Employees;
 using System.ComponentModel.DataAnnotations;
 
 namespace ReferenceApi.UnitTests;
+[Trait("Stage", "Unit")]
 public class ValidingEmployeeCreateRequestsTests
 {
     [Theory]

@@ -24,7 +24,7 @@ builder.Services.AddScoped<IGetBonusesForOrders>(sp =>
 );
 
 builder.Services.AddSingleton(sp => TimeProvider.System);
-builder.Services.AddSingleton<INotifyOfPossibleSithLords, NotifyOfPossibleSithLords>();
+builder.Services.AddSingleton<INotifyOfPossibleSithLords, LoggingNotifier>();
 builder.Services.AddScoped<ICheckForUniqueEmployeeStubs, EmployeeUniquenessChecker>();
 builder.Services.AddScoped<IGenerateSlugsForNewEmployees, EmployeeSlugGeneratorWithUniqueIds>();
 // Add services to the container.

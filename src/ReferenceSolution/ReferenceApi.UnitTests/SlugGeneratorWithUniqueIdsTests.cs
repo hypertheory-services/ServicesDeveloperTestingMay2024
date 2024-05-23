@@ -4,6 +4,7 @@ using NSubstitute;
 using ReferenceApi.Employees;
 
 namespace ReferenceApi.UnitTests;
+[Trait("Stage", "Unit")]
 public class SlugGeneratorWithUniqueIdsTests
 {
     [Theory]

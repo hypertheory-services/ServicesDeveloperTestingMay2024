@@ -1,6 +1,7 @@
 ﻿using ReferenceApi.Employees;
 
 namespace ReferenceApi.UnitTests;
+[Trait("Stage", "Unit")]
 public class SlugGeneratorTests
 {
 

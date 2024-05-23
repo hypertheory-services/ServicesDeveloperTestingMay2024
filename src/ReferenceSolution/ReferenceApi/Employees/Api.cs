@@ -14,16 +14,13 @@ public class Api(
     ) : ControllerBase
 
 {
-
-
     [HttpPost("employees")]
-
     public async Task<ActionResult> AddEmployeeAsync(
         [FromBody] EmployeeCreateRequest request,
         CancellationToken token
         )
     {
-
+    
         var validations = validator.Validate(request);
         if (!validations.IsValid)
         {
@@ -98,12 +95,12 @@ public class EmployeeEntity
     public Guid Id { get; set; }
     public string Slug { get; set; } = string.Empty;
     public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
+    public string? LastName { get; set; } = null;
 }
 
 public record EmployeeResponseItem // what we send back.
 {
     public required string Id { get; set; }
     public required string FirstName { get; init; }
-    public required string LastName { get; init; }
+    public string? LastName { get; init; }
 }

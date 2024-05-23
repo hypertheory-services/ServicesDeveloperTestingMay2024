@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using ReferenceApi.Order;
 
-namespace ReferenceApi.ContractTests;
+namespace ReferenceApi.ContractTests.Fixtures;
 public class HostFixtureNoDatabase : IAsyncLifetime
 {
     public IAlbaHost Host = null!;
@@ -22,7 +22,7 @@ public class HostFixtureNoDatabase : IAsyncLifetime
 
             config.ConfigureTestServices(sp =>
             {
-                sp.AddScoped<IGetBonusesForOrders>((_ => fakeLoyaltyApi));
+                sp.AddScoped(_ => fakeLoyaltyApi);
             });
         });
     }

@@ -1,9 +1,7 @@
-﻿
-
-using ReferenceApi.Employees;
+﻿using ReferenceApi.Employees;
 using System.Collections;
 
-namespace ReferenceApi.ContractTests.Employees;
+namespace ReferenceApi.ContractTests.Fixtures;
 public class EmployeesSampleData : IEnumerable<object[]>
 {
     private readonly IReadOnlyList<object[]> _data = [

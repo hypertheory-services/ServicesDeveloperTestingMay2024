@@ -1,6 +1,6 @@
 ﻿namespace ReferenceApi.Employees;
 
-public class NotifyOfPossibleSithLords(ILogger<NotifyOfPossibleSithLords> logger) : INotifyOfPossibleSithLords
+public class LoggingNotifier(ILogger<LoggingNotifier> logger) : INotifyOfPossibleSithLords
 {
     public void Notify(string firstName, string lastName)
     {
