@@ -1,11 +1,12 @@
 ﻿
 
+using Hypertheory.TestAttributes;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using ReferenceApi.Employees;
 
 namespace ReferenceApi.UnitTests;
-[Trait("Stage", "Unit")]
+[UnitTest]
 public class LoggingNotifierTests
 {
     /// <summary>

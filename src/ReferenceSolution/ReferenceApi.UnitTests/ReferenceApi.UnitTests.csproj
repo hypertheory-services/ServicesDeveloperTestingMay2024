@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hypertheory.TestAttributes\Hypertheory.TestAttributes.csproj" />
     <ProjectReference Include="..\ReferenceApi\ReferenceApi.csproj" />
   </ItemGroup>
 

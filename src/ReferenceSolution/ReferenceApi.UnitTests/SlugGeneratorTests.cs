@@ -1,7 +1,8 @@
-﻿using ReferenceApi.Employees;
+﻿using Hypertheory.TestAttributes;
+using ReferenceApi.Employees;
 
 namespace ReferenceApi.UnitTests;
-[Trait("Stage", "Unit")]
+[UnitTest]
 public class SlugGeneratorTests
 {
 

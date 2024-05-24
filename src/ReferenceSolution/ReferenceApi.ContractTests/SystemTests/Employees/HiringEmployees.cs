@@ -1,11 +1,11 @@
 ﻿
 using Alba;
+using Hypertheory.TestAttributes;
 using ReferenceApi.ContractTests.Fixtures;
 using ReferenceApi.Employees;
-using System.ComponentModel;
 
 namespace ReferenceApi.ContractTests.SystemTests.Employees;
-[Trait("Stage", "SystemsTests")]
+[IntegratedTest]
 public class HiringEmployees : IClassFixture<SystemsTestFixture>
 {
 

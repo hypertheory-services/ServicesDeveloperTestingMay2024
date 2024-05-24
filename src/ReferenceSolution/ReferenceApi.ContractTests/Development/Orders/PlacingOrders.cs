@@ -1,6 +1,7 @@
 ﻿
 
 using Alba;
+using Hypertheory.TestAttributes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Time.Testing;
 using ReferenceApi.ContractTests.Fixtures;
@@ -30,7 +31,8 @@ public class TimeBoundTestFixture : SystemsTestFixture
    
 }
 
-[Trait("Stage", "Development")]
+
+[InDevelopmentTest(Feature ="Orders")]
 public class PlacingOrders : IClassFixture<TimeBoundTestFixture>
 {
     private readonly WireMockServer _server;

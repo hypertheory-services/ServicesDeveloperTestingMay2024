@@ -1,9 +1,10 @@
 ﻿using FluentValidation.TestHelper;
+using Hypertheory.TestAttributes;
 using ReferenceApi.Employees;
 using System.ComponentModel.DataAnnotations;
 
 namespace ReferenceApi.UnitTests;
-[Trait("Stage", "Unit")]
+[UnitTest]
 public class ValidingEmployeeCreateRequestsTests
 {
     [Theory]

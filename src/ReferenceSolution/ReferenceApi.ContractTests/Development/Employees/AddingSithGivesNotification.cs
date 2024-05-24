@@ -1,4 +1,5 @@
 ﻿using Alba;
+using Hypertheory.TestAttributes;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using ReferenceApi.ContractTests.Fixtures;
@@ -31,7 +32,9 @@ public class SithGrayBoxFixture : SystemsTestFixture
         services.AddScoped(sp => MockedSithNotifier);
     }
 }
-[Trait("Stage", "Development")]
+
+
+[InDevelopmentTest(Feature ="Employees", ReadyForReview =true)]
 public class AddingSithGivesNotification : IClassFixture<SithGrayBoxFixture>
 {
     private readonly IAlbaHost Host;
@@ -43,7 +46,8 @@ public class AddingSithGivesNotification : IClassFixture<SithGrayBoxFixture>
         MockedSithNotifier = fixture.MockedSithNotifier;
         MockedSithNotifier.ClearReceivedCalls();
     }
-    [Fact(Skip = "At this point we are seeing it is in the logs and we have unit tested it. Move out of dev?")]
+
+    [Fact]
     public async Task Notifies()
     {
 
@@ -59,7 +63,7 @@ public class AddingSithGivesNotification : IClassFixture<SithGrayBoxFixture>
             .Notify("Darth", "Vader");
     }
 
-    [Fact(Skip = "At this point we are seeing it is in the logs and we have unit tested it. Move out of dev?")]
+    [Fact]
     public async Task DoesNotNotifyForNonSith()
     {
 
@@ -71,7 +75,7 @@ public class AddingSithGivesNotification : IClassFixture<SithGrayBoxFixture>
         });
 
         //THEN
-        // Assert on what??
+  
         MockedSithNotifier
             .DidNotReceive()
             .Notify(Arg.Any<string>(), Arg.Any<string>());

@@ -1,11 +1,12 @@
 ﻿
 using Alba;
-
+using Hypertheory.TestAttributes;
+using Microsoft.Extensions.Logging;
 using ReferenceApi.ContractTests.Fixtures;
 using ReferenceApi.Employees;
 
 namespace ReferenceApi.ContractTests.SystemTests.Employees;
-[Trait("Stage", "SystemsTests")]
+[IntegratedTest]
 public class ScreeningForPotentialSith : IClassFixture<SystemsTestFixture>
 {
     private readonly IAlbaHost Host;
@@ -28,13 +29,13 @@ public class ScreeningForPotentialSith : IClassFixture<SystemsTestFixture>
            
         });
 
-        Assert.True(Fixture.LogContains("We Have a Possible Sith Lord Darth Vader"));
+        Assert.True(Fixture.LogContains(LogLevel.Information,"We Have a Possible Sith Lord Darth Vader"));
        
     }
 
  
 }
-[Trait("Stage", "Development")]
+[IntegratedTest]
 public class ScreeningForNonPotentialSithCandidates : IClassFixture<SystemsTestFixture>
 {
     private readonly IAlbaHost Host;
@@ -47,6 +48,7 @@ public class ScreeningForNonPotentialSithCandidates : IClassFixture<SystemsTestF
     }
 
     [Fact]
+
     public async Task LogIsNotWritten()
     {
         var candidate = new EmployeeCreateRequest { FirstName = "Anakin", LastName = "Skywalker" };
@@ -61,3 +63,7 @@ public class ScreeningForNonPotentialSithCandidates : IClassFixture<SystemsTestF
 
     }
 }
+
+
+
+

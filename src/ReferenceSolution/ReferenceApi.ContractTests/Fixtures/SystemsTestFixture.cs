@@ -3,11 +3,15 @@ using Meziantou.Extensions.Logging.InMemory;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ReferenceApi.Employees;
 using Testcontainers.PostgreSql;
 using WireMock.Server;
 
 
 namespace ReferenceApi.ContractTests.Fixtures;
+
+public delegate Func<Action<Scenario>, Task<IScenarioResult>> Scenario();
+
 public class SystemsTestFixture : IAsyncLifetime
 {
     public IAlbaHost Host = null!;
@@ -17,6 +21,7 @@ public class SystemsTestFixture : IAsyncLifetime
         .Build();
 
     public WireMockServer MockApiServer = null!;
+    
     
     public async Task InitializeAsync()
     {
@@ -29,10 +34,7 @@ public class SystemsTestFixture : IAsyncLifetime
         {
             config.UseSetting("ConnectionStrings:data", _container.GetConnectionString());
             config.UseSetting("loyaltyApi", MockApiServer.Url);
-            config.ConfigureServices(sp =>
-            {
-                ConfigureServices(sp);
-            });
+          
             config.ConfigureTestServices(services =>
             {
 
@@ -40,12 +42,25 @@ public class SystemsTestFixture : IAsyncLifetime
                 ConfigureTestServices(services);
             });
         });
+       
     }
 
+    /// <summary>
+    /// Find if during the test run a particular message was logged at any log level
+    /// </summary>
+    /// <param name="message"></param>
+    /// <returns></returns>
     public bool LogContains(string message)
     {
         return _loggerProvider.Logs.Any(l => l.Message.Contains(message));
     }
+
+    /// <summary>
+    /// Find if during the test run a particular message was logged at a specfic log level
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="message"></param>
+    /// <returns></returns>
     public bool LogContains(LogLevel level, string message)
     {
         return _loggerProvider.Logs.Where(l => l.LogLevel == level).Any(l => l.Message.Contains(message));
@@ -64,6 +79,6 @@ public class SystemsTestFixture : IAsyncLifetime
     {
 
     }
-    protected virtual void ConfigureServices(IServiceCollection services) { }
+
 }
 

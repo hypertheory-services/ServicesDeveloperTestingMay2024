@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace ReferenceApi.Order;
+﻿namespace ReferenceApi.Order;
 
 public class CustomerLoyaltyHttpClient(HttpClient client, TimeProvider timeProvider) : IGetBonusesForOrders
 {
@@ -20,7 +18,7 @@ public class CustomerLoyaltyHttpClient(HttpClient client, TimeProvider timeProvi
 
         var response = await client.PostAsJsonAsync(resource, request, cancellationToken: token);
 
-        //response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode();
 
         var body = await response.Content.ReadFromJsonAsync<CustomerLoyaltyTypes.LoyaltyDiscountResponse>();
         if (body is not null)
@@ -29,8 +27,7 @@ public class CustomerLoyaltyHttpClient(HttpClient client, TimeProvider timeProvi
         }
         else
         {
-            // throw an exception? not sure... (more in a minute)
-            return 0;
+            throw new HttpRequestException();
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿
 
+using Hypertheory.TestAttributes;
 using NSubstitute;
 using ReferenceApi.Employees;
 
 namespace ReferenceApi.UnitTests;
-[Trait("Stage", "Unit")]
+[UnitTest]
 public class SlugGeneratorWithUniqueIdsTests
 {
     [Theory]
